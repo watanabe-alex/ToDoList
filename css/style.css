@@ -1,0 +1,31 @@
+.tarefa {
+    border: 1px solid #404040;
+    border-radius: 20px;
+    padding: 30px;
+    display: flex;
+    min-width: 400px;
+}
+
+.icon {
+    width: 30px;
+}
+.icon:active {
+    box-shadow: 0 3px 0 green;
+    top: 3px;
+}
+
+footer {
+    position: fixed;
+    bottom: 0;
+    /* height: 10vh; */
+    width: 100%;
+}
+
+#add {
+    width: 40px;
+}
+
+#add:active {
+    box-shadow: 0 3px 0 green;
+    top: 3px;
+}
