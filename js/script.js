@@ -14,23 +14,26 @@ mostrarNaTela(listaTarefas);
 buttonAdd.onclick = function() {
 
   let valorDigitado = inputAdd.value;
-  gerarTarefa(valorDigitado);
 
   // adicionar tarefa no localStorage
   listaTarefas.push(valorDigitado);
   localStorage.setItem("listaTarefas", JSON.stringify(listaTarefas));
+
+  gerarTarefa(valorDigitado, listaTarefas.length-1);
 }
 
 function mostrarNaTela(tarefas){
-  for (let item of tarefas) {
-    gerarTarefa(item);
-  }
+  board.innerHTML = "";
+  listaTarefas.forEach(function (val, pos) {
+    gerarTarefa(val, pos);
+  });
 }
 
-function gerarTarefa(valor){
+function gerarTarefa(valor, pos){
   // cria todos os elementos
   let tarefa = document.createElement('div');
   tarefa.setAttribute('class','tarefa');
+  tarefa.setAttribute('pos', pos);
 
   let titulo = document.createElement('div');
   titulo.setAttribute('class','col-md-8');
@@ -51,17 +54,20 @@ function gerarTarefa(valor){
 
   // adiciona função para concluir tarefas
   imgCheck.addEventListener('click', function(e) {
+
+    // remove do local storage
+    // listaTarefas.splice(tarefa.getAttribute('pos'), 1);
+    listaTarefas = listaTarefas.filter(function(valor,posicao){ //outra maneira de filtrar
+      return posicao != tarefa.getAttribute('pos');
+    });
+    localStorage.setItem("listaTarefas", JSON.stringify(listaTarefas));
+
     // remove do html
     tarefa.remove(); //maneira 1 de fazer
     //e.target.parentNode.parentNode.remove(); //maneira 2 de fazer
 
-    // remove do local storage
-    let pos = listaTarefas.indexOf(valor);
-    if (pos !== -1) {
-      listaTarefas.splice(pos, 1);
-      localStorage.setItem("listaTarefas", JSON.stringify(listaTarefas));
-    }
+    mostrarNaTela();
+  });
 
-  })
 }
 
