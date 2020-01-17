@@ -48,4 +48,20 @@ function gerarTarefa(valor){
   tarefa.appendChild(titulo);
   tarefa.appendChild(buttonCheck);
   board.appendChild(tarefa);
+
+  // adiciona função para concluir tarefas
+  imgCheck.addEventListener('click', function(e) {
+    // remove do html
+    tarefa.remove(); //maneira 1 de fazer
+    //e.target.parentNode.parentNode.remove(); //maneira 2 de fazer
+
+    // remove do local storage
+    let pos = listaTarefas.indexOf(valor);
+    if (pos !== -1) {
+      listaTarefas.splice(pos, 1);
+      localStorage.setItem("listaTarefas", JSON.stringify(listaTarefas));
+    }
+
+  })
 }
+
